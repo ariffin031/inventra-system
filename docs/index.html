@@ -1,0 +1,640 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="INVENTRA - Inventory & Laboratory Management System untuk pengelolaan inventaris dan laboratorium sekolah.">
+    <title>INVENTRA | Inventory Management System</title>
+
+    <style>
+        :root {
+            --navy: #071426;
+            --navy-light: #102441;
+            --blue: #2563eb;
+            --blue-light: #60a5fa;
+            --bg: #f5f8fc;
+            --text: #17243a;
+            --muted: #64748b;
+            --white: #ffffff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        .container {
+            width: min(1120px, 92%);
+            margin: auto;
+        }
+
+        header {
+            background: var(--navy);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            border-bottom: 1px solid #ffffff18;
+        }
+
+        nav {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .brand-icon {
+            background: var(--blue);
+            width: 43px;
+            height: 43px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 24px;
+        }
+
+        .brand small {
+            display: block;
+            font-size: 9px;
+            font-weight: 400;
+            color: #a9c7f5;
+            letter-spacing: 1.2px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 27px;
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+
+        .nav-links a:hover { color: white; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: .2s;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            color: white;
+            box-shadow: 0 8px 25px #2563eb45;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 1px solid #ffffff55;
+            color: white;
+        }
+
+        .hero {
+            background:
+                radial-gradient(circle at 80% 30%, #1e5bb555, transparent 35%),
+                linear-gradient(125deg, #071426, #102b50);
+            color: white;
+            padding: 95px 0 110px;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            align-items: center;
+            gap: 55px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            color: #93c5fd;
+            background: #2563eb30;
+            border: 1px solid #60a5fa55;
+            padding: 7px 13px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 5vw, 61px);
+            line-height: 1.12;
+            letter-spacing: -2px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span { color: #60a5fa; }
+
+        .hero p {
+            color: #cbd5e1;
+            max-width: 530px;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .dashboard-preview {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 16px;
+            box-shadow: 0 30px 80px #0008;
+            transform: perspective(1000px) rotateY(-5deg);
+        }
+
+        .preview-top {
+            background: white;
+            color: var(--text);
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .preview-body {
+            display: grid;
+            grid-template-columns: 95px 1fr;
+            min-height: 245px;
+        }
+
+        .preview-sidebar {
+            background: var(--navy);
+            padding: 18px 10px;
+            color: #94a3b8;
+            font-size: 9px;
+        }
+
+        .preview-sidebar div {
+            padding: 9px 5px;
+            margin-bottom: 5px;
+        }
+
+        .preview-sidebar .active {
+            background: var(--blue);
+            border-radius: 5px;
+            color: white;
+        }
+
+        .preview-main {
+            padding: 18px 13px;
+            color: var(--text);
+        }
+
+        .preview-main h3 {
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 9px;
+        }
+
+        .stat {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 7px;
+            padding: 12px;
+        }
+
+        .stat small { color: var(--muted); font-size: 9px; }
+        .stat strong { display: block; font-size: 21px; color: var(--blue); }
+
+        .preview-table {
+            margin-top: 12px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 7px;
+            padding: 12px;
+            font-size: 9px;
+            color: var(--muted);
+        }
+
+        .preview-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        section { padding: 85px 0; }
+
+        .section-heading {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 45px;
+        }
+
+        .section-heading span {
+            color: var(--blue);
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-heading h2 {
+            font-size: 34px;
+            margin: 10px 0;
+            letter-spacing: -1px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 27px;
+            border-radius: 14px;
+            transition: .2s;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px #0f172a12;
+        }
+
+        .feature-icon {
+            width: 49px;
+            height: 49px;
+            display: grid;
+            place-items: center;
+            background: #eff6ff;
+            color: var(--blue);
+            border-radius: 12px;
+            font-size: 23px;
+            margin-bottom: 18px;
+        }
+
+        .feature h3 { font-size: 17px; margin-bottom: 8px; }
+        .feature p { color: var(--muted); font-size: 13px; }
+
+        .workflow {
+            background: white;
+        }
+
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .workflow-item {
+            padding: 20px;
+            border-left: 3px solid var(--blue);
+            background: #f8fafc;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .workflow-item strong { display: block; margin-bottom: 6px; }
+        .workflow-item p { color: var(--muted); font-size: 12px; }
+
+        .cta {
+            background: linear-gradient(120deg, #102441, #1d4ed8);
+            border-radius: 20px;
+            padding: 55px 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta h2 { font-size: 30px; margin-bottom: 12px; }
+        .cta p { color: #dbeafe; margin-bottom: 25px; font-size: 14px; }
+
+        footer {
+            background: var(--navy);
+            color: #94a3b8;
+            padding: 35px 0;
+            font-size: 12px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        @media(max-width: 800px) {
+            .hero-content { grid-template-columns: 1fr; }
+            .dashboard-preview { transform: none; }
+            .features { grid-template-columns: repeat(2, 1fr); }
+            .workflow-grid { grid-template-columns: repeat(2, 1fr); }
+            .nav-links { display: none; }
+        }
+
+        @media(max-width: 520px) {
+            .hero { padding: 65px 0; }
+            .features, .workflow-grid { grid-template-columns: 1fr; }
+            .section-heading h2 { font-size: 27px; }
+            section { padding: 60px 0; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <nav>
+            <a href="#" class="brand">
+                <div class="brand-icon">⬡</div>
+                <div>
+                    INVENTRA
+                    <small>INVENTORY MANAGEMENT</small>
+                </div>
+            </a>
+
+            <div class="nav-links">
+                <a href="#beranda">Beranda</a>
+                <a href="#fitur">Fitur</a>
+                <a href="#alur">Alur Sistem</a>
+                <a href="#tentang">Tentang</a>
+            </div>
+
+            <a class="btn btn-primary" href="https://github.com/ariffin031/inventra-system">
+                Lihat GitHub ↗
+            </a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="hero" id="beranda">
+        <div class="container hero-content">
+
+            <div>
+                <span class="eyebrow">SCHOOL INVENTORY MANAGEMENT SYSTEM</span>
+
+                <h1>
+                    Kelola Inventaris Sekolah dengan
+                    <span>Lebih Cerdas.</span>
+                </h1>
+
+                <p>
+                    INVENTRA adalah sistem informasi pengelolaan inventaris
+                    dan laboratorium sekolah untuk membantu pencatatan aset,
+                    peminjaman, pengembalian, QR Code, dan pemeliharaan
+                    peralatan secara terintegrasi.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#fitur" class="btn btn-primary">
+                        Jelajahi Fitur →
+                    </a>
+
+                    <a href="https://github.com/ariffin031/inventra-system"
+                       class="btn btn-outline">
+                        Source Code GitHub
+                    </a>
+                </div>
+            </div>
+
+            <div class="dashboard-preview">
+                <div class="preview-top">
+                    <span>⬡ INVENTRA Dashboard</span>
+                    <span>Administrator</span>
+                </div>
+
+                <div class="preview-body">
+                    <div class="preview-sidebar">
+                        <div class="active">▦ Dashboard</div>
+                        <div>▤ Kategori</div>
+                        <div>⬡ Inventaris</div>
+                        <div>▦ QR Code</div>
+                        <div>＋ Peminjaman</div>
+                        <div>↩ Pengembalian</div>
+                    </div>
+
+                    <div class="preview-main">
+                        <h3>Ringkasan Inventaris</h3>
+
+                        <div class="stats">
+                            <div class="stat">
+                                <small>Total Barang</small>
+                                <strong>125</strong>
+                            </div>
+                            <div class="stat">
+                                <small>Unit Tersedia</small>
+                                <strong>98</strong>
+                            </div>
+                            <div class="stat">
+                                <small>Dipinjam</small>
+                                <strong>20</strong>
+                            </div>
+                            <div class="stat">
+                                <small>Pemeliharaan</small>
+                                <strong>7</strong>
+                            </div>
+                        </div>
+
+                        <div class="preview-table">
+                            <div class="preview-row">
+                                <strong>Aktivitas Inventaris</strong>
+                                <strong>Status</strong>
+                            </div>
+                            <div class="preview-row">
+                                <span>Komputer Laboratorium</span>
+                                <span style="color:green">Tersedia</span>
+                            </div>
+                            <div class="preview-row">
+                                <span>Proyektor Multimedia</span>
+                                <span style="color:#d97706">Dipinjam</span>
+                            </div>
+                            <div class="preview-row">
+                                <span>Printer Laboratorium</span>
+                                <span style="color:#dc2626">Perbaikan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="fitur">
+        <div class="container">
+
+            <div class="section-heading">
+                <span>Fitur Sistem</span>
+                <h2>Semua Inventaris dalam Satu Sistem</h2>
+                <p>
+                    Dirancang untuk membantu sekolah mengelola aset,
+                    laboratorium, dan aktivitas peminjaman secara lebih tertata.
+                </p>
+            </div>
+
+            <div class="features">
+
+                <article class="feature">
+                    <div class="feature-icon">▤</div>
+                    <h3>Kategori Alat</h3>
+                    <p>Pengelompokan peralatan berdasarkan kategori dan jenis barang.</p>
+                </article>
+
+                <article class="feature">
+                    <div class="feature-icon">▣</div>
+                    <h3>Data Inventaris</h3>
+                    <p>Pencatatan informasi aset, merek, model, dan jumlah unit.</p>
+                </article>
+
+                <article class="feature">
+                    <div class="feature-icon">▦</div>
+                    <h3>Unit dan QR Code</h3>
+                    <p>Identifikasi setiap unit barang menggunakan identitas QR Code.</p>
+                </article>
+
+                <article class="feature">
+                    <div class="feature-icon">⇄</div>
+                    <h3>Peminjaman</h3>
+                    <p>Pencatatan permohonan dan persetujuan peminjaman peralatan.</p>
+                </article>
+
+                <article class="feature">
+                    <div class="feature-icon">↩</div>
+                    <h3>Pengembalian</h3>
+                    <p>Pencatatan pengembalian dan pemeriksaan kondisi barang.</p>
+                </article>
+
+                <article class="feature">
+                    <div class="feature-icon">⚙</div>
+                    <h3>Pemeliharaan</h3>
+                    <p>Pemantauan kerusakan, perbaikan, dan riwayat pemeliharaan.</p>
+                </article>
+
+                <article class="feature">
+                    <div class="feature-icon">♙</div>
+                    <h3>Manajemen Pengguna</h3>
+                    <p>Pengelolaan akun, persetujuan pendaftaran, dan hak akses.</p>
+                </article>
+
+                <article class="feature">
+                    <div class="feature-icon">♧</div>
+                    <h3>Notifikasi</h3>
+                    <p>Pemberitahuan aktivitas dan informasi penting sistem.</p>
+                </article>
+
+                <article class="feature">
+                    <div class="feature-icon">▤</div>
+                    <h3>Log Aktivitas</h3>
+                    <p>Riwayat aktivitas pengguna untuk membantu pengawasan sistem.</p>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="workflow" id="alur">
+        <div class="container">
+            <div class="section-heading">
+                <span>Alur Pengelolaan</span>
+                <h2>Pengelolaan Aset Lebih Terstruktur</h2>
+                <p>Gambaran proses pengelolaan inventaris dari pencatatan hingga pemeliharaan.</p>
+            </div>
+
+            <div class="workflow-grid">
+                <div class="workflow-item">
+                    <strong>01. Pencatatan</strong>
+                    <p>Barang dan unit inventaris dicatat dalam sistem.</p>
+                </div>
+
+                <div class="workflow-item">
+                    <strong>02. Identifikasi</strong>
+                    <p>Setiap unit memiliki identitas dan QR Code.</p>
+                </div>
+
+                <div class="workflow-item">
+                    <strong>03. Transaksi</strong>
+                    <p>Peminjaman dan pengembalian tercatat.</p>
+                </div>
+
+                <div class="workflow-item">
+                    <strong>04. Pemeliharaan</strong>
+                    <p>Kondisi dan riwayat perbaikan dapat dipantau.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tentang">
+        <div class="container">
+            <div class="cta">
+                <h2>INVENTRA</h2>
+                <p>
+                    Inventory & Laboratory Management System
+                    <br>
+                    Solusi pengelolaan inventaris dan laboratorium sekolah.
+                </p>
+
+                <a href="https://github.com/ariffin031/inventra-system"
+                   class="btn btn-primary">
+                    Kunjungi Repository GitHub ↗
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container footer-content">
+        <div>
+            <strong style="color:white">INVENTRA</strong>
+            <p>Inventory & Laboratory Management System</p>
+        </div>
+
+        <div>
+            © 2026 INVENTRA. Project Development.
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
